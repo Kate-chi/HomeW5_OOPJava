@@ -1,21 +1,21 @@
-public class Contact {
+public class Contact implements Printable{
 
-    private String phoneNumber;
+    private StringBuilder phoneNumber = new StringBuilder();
     private String firstName;
     private String lastName;
 
     public Contact(String phoneNumber, String firstName, String lastName) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber.append(phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;
     }
     
-    public String getPhoneNumber() {
+    public StringBuilder getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber.append("; " + phoneNumber);
     }
 
     public String getFirstName() {
@@ -39,7 +39,7 @@ public class Contact {
         return this.firstName.equals(obj) && this.lastName.equals(obj);
     }
     public boolean contains(String str) {
-        return this.phoneNumber.contains(str) || this.firstName.contains(str) || this.lastName.contains(str);
+        return this.phoneNumber.toString().contains(str) || this.firstName.contains(str) || this.lastName.contains(str);
     }
 
     public void print() {

@@ -1,18 +1,16 @@
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class PhoneBook implements Writing, Reading{
+public class PhoneBook {
     public void addContact(ArrayList<Contact> list) {
         System.out.println("Добавить новый контакт?");
         System.out.println("w - Выход, Enter - продолжение");
         Scanner scn = new Scanner(System.in);
         while (true) {
             String input = scn.nextLine();
-            if (input.equals("w")) {
+            if (input.equals("w")) 
                 break;
-            } else {
+            else {
                 System.out.println("Введите номер телефона:");
                 String inputPhone = scn.nextLine();
                 System.out.println("Введите Имя:");
@@ -30,29 +28,17 @@ public class PhoneBook implements Writing, Reading{
         int in = scan.nextInt();
         list.remove(in - 1);
     }
-    @Override
-    public void writeToFile(ArrayList<Contact> contactsList) throws IOException {
-        FileWriter writer = new FileWriter("phonebook.csv", false);
-        for(Contact c  : contactsList) {
-            writer.write(c.getPhoneNumber() + "," + c.getFirstName() + "," + c.getLastName() + "\n");
-        }
-        writer.close();
-    }
-
-    public void readFromFile(ArrayList<Contact> contactsList){
-        File file = new File("phonebook.csv");
-        try {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String phoneNumber = Arrays.asList(line.split(",")).get(0);
-                    String firstName = Arrays.asList(line.split(",")).get(1);
-                    String lastName = Arrays.asList(line.split(",")).get(2);
-                    contactsList.add(new Contact(phoneNumber, firstName, lastName));
-                }
+    
+    public void setAdditionalNumber(ArrayList<Contact> list) {
+        System.out.println("Введите номер, фамилию или имя контакта");
+        Scanner scn = new Scanner(System.in);
+        String input = scn.nextLine();
+        for (Contact c : list) {
+            if (c.contains(input)) {
+                System.out.println("Введите номер: ");
+                input = scn.nextLine();
+                c.setPhoneNumber(input);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
